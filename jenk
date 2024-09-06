@@ -4,7 +4,7 @@ agent any
 stages
   {
 stage('scm checkout: download code from github')
-{steps { git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject' }}
+{steps { git branch: 'main', url: 'https://github.com/rahulbandral/devops24.git' }}
 stage('execute unit test framework')
 {steps { withMaven(globalMavenSettingsConfig: '', jdk: 'java', maven: 'maven', mavenSettingsConfig: '', traceability: true) { sh 'mvn test'
 } } }
