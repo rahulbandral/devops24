@@ -9,14 +9,10 @@ stage('execute unit test framework')
 {steps{withMaven(globalMavenSettingsConfig: '', jdk: 'java', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
     sh 'mvn test'
 } }}
-stage('sonar analysis')
-{steps{withSonarQubeEnv(credentialsId: 'sonar'installationName: 'sonar') {
+stage('sonar analysis & generate artifacts ')
+{steps{withMaven(globalMavenSettingsConfig: '', jdk: 'java', maven: 'maven', mavenSettingsConfig: '', traceability: true){withSonarQubeEnv(credentialsId: 'sonar'installationName: 'sonar') {
     sh 'sonar:sonar'
-} }}
-stage('generate artifacts')
-{steps{withMaven(globalMavenSettingsConfig: '', jdk: 'java', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
-    sh 'mvn package'
-} }}
+} }}}
 
 
 
