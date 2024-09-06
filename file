@@ -1,26 +1,17 @@
-pipeline
-{
-agent any 
-stages
-{
- stage('scm checkout')
-  steps { git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject' }}
+pipeline{
+agent any
+stages 
+{ 
+  stage ('my first job to print')
+     {steps {sh 'echo hello_jenkins'}}
 
 
- stage('code compile')
-steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
-    sh 'mvn compile'
- } }}
+  stage('building the job')
+    {steps { sh 'ehoco code_is_building' }}
 
-  stage('execute unit test framework')
-   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
-    sh 'mvn test'
- } }}
 
-   stage('code build')
-   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
-    sh 'mvn package'
- } }}
+  stage('deloy artifact')
+    {steps { sh 'echo code_is_deploying' }}
 
-}
+
 }
