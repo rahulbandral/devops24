@@ -1,0 +1,8 @@
+Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent any 
+    stages {
+        stage('scm checkout : download code from repo') {
+            steps {git branch: 'main', url: 'https://github.com/rahulbandral/devops24.git''}}
+    }
+}
