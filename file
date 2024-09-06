@@ -1,0 +1,16 @@
+pipeline {
+    agent any 
+    stages {
+        stage('scm checkout : download code from repo') {
+            steps {git branch: 'main', url: 'https://github.com/rahulbandral/devops24.git''}}
+     stage('framework') {
+            steps {withMaven(globalMavenSettingsConfig: '', jdk: 'java', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
+    sh  ' mvn test '}}
+ stage('package') {
+            steps {withMaven(globalMavenSettingsConfig: '', jdk: 'java', maven: 'maven', mavenSettingsConfig: '', traceability: true) {
+    sh  ' mvn package '}}
+
+
+    }
+}
+
