@@ -13,3 +13,4 @@ stage('sonar analysis & generate artifacts')
 { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'Sonar') { sh 'mvn package sonar:sonar '}
 }} }
 }}
+
