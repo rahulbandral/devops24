@@ -1,15 +1,29 @@
 pipeline
 {
-agent any
+agent any 
 stages
 {
-stage('scm checkout')
-{steps { git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject' }}
-stage('execute unit test framework')
-{steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) { sh 'mvn test'
-} }}
-stage('sonar analysis & generate artifacts')
-{steps { withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)
-{ withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar') { sh 'mvn package sonar:sonar '}
-}} }
-}}
+ stage('scm checkout')
+ { agent { label 'MAVEN' }
+  steps { git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject' }}
+
+
+ stage('code compile')
+ { agent { label 'MAVEN' }
+steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+    sh 'mvn compile'
+ } }}
+
+  stage('execute unit test framework')
+ {agent { label 'MAVEN' }
+   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+    sh 'mvn test'
+ } }}
+
+   stage('code build')
+ {agent { label 'MAVEN' }
+   steps { withMaven(globalMavenSettingsConfig: '', jdk: 'SLAVE_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true)  {
+    sh 'mvn package'
+ } }}
+
+}
