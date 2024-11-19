@@ -13,3 +13,9 @@ stage('generate artifact')
 } } }
 }
 }
+docker run -d \
+  -p 9000:8080 \
+  -v jenkins_home:/var/jenkins_home \
+  --name jenkins \
+  --restart unless-stopped \
+  jenkins/jenkins:lts
