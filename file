@@ -1,17 +1,17 @@
-DevOps Shack
-Jenkins Part-2: Jenkins Installation and Configuration Guide
-Click Here To Enrol To Batch-6 | DevOps & Cloud DevOps
-Prerequisites
-Before installing Jenkins, ensure that Java is installed on your system. Jenkins requires Java to run. The following command installs OpenJDK 17:
+#!/bin/bash
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo dnf upgrade
+# Add required dependencies for the jenkins package
+sudo dnf install fontconfig java-17-openjdk
+sudo dnf install jenkins
+sudo systemctl daemon-reload
+
 sudo apt install openjdk-17-jre-headless -y
-This command installs the necessary Java Runtime Environment to ensure Jenkins functions correctly.
-Installing Jenkins
-Step 1: Create a Script for Installation
-Create a shell script to automate the installation process. This script will download the Jenkins key, add the Jenkins repository, and install Jenkins.
-1.
+
 Create a script file named install-jenkins.sh:
 vi install-jenkins.sh
-2.
 Copy the following content into the script:
 #!/bin/bash
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
