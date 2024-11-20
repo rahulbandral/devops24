@@ -1,0 +1,28 @@
+sudo systemctl daemon-reload
+
+sudo systemctl status jenkins
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
+
+ vi /usr/lib/systemd/system/jenkins.service     ( edit the file change the env value to 9000  )
+sudo vi  /etc/default/jenkins      change the value to 9000 run above cmd 
+sudo apt install openjdk-17-jre-headless -y
+
+Create a script file named install-jenkins.sh:
+vi install-jenkins.sh
+Copy the following content into the script:
+#!/bin/bash
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+/etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt-get update
+sudo apt-get install jenkins
+Step 2: Set Permissions and Run the Script
+1.
+Change the script's permissions to make it executable:
+sudo chmod +x install-jenkins.sh
+2.
+Execute the script to install Jenkins:
+./install-jenkins.sh
